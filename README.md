@@ -21,9 +21,9 @@ El escenario permite observar el intercambio de mensajes Bridge Protocol Data Un
 
 
 ### Detalles de la Topología
-Detalles de la Topología
+
 Segmentación de Red: VLAN 1 (predeterminada).
-Infraestructura:
+**Infraestructura:**
 Switch Cisco IOU L2.
 Cloud VMnet8.
 Kali Linux conectado a la red de laboratorio.
