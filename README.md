@@ -24,16 +24,17 @@ El escenario permite observar el intercambio de mensajes Bridge Protocol Data Un
 
 Segmentación de Red: VLAN 1 (predeterminada).
 **Infraestructura:**
-Switch Cisco IOU L2.
-Cloud VMnet8.
-Kali Linux conectado a la red de laboratorio.
-Actores:
-Equipo de análisis: Kali Linux (interfaz conectada a VMnet8).
-Dispositivo analizado: Switch Cisco IOU L2.
-Direccionamiento
-Red utilizada: 192.168.140.0/24.
-Kali Linux: 192.168.140.132/24.
-Conectividad proporcionada mediante Cloud VMnet8.
+* **Switch Cisco IOU L2.**
+* **Cloud VMnet8.**
+* **Kali Linux conectado a la red de laboratorio.**
+**Actores:**
+* **Equipo de análisis: Kali Linux (interfaz conectada a VMnet8).**
+**Dispositivo analizado:**
+* **Switch Cisco IOU L2.**
+**Direccionamiento**
+* **Red utilizada:** 192.168.140.0/24.
+* **Kali Linux:** 192.168.140.132/24.
+**Conectividad proporcionada mediante Cloud VMnet8.**
 
 O si deseas mantener el formato de "Atacante" para fines académicos:
 
