@@ -36,7 +36,7 @@ El escenario permite observar el intercambio de mensajes Bridge Protocol Data Un
 * **Kali Linux:** 192.168.140.132/24.
 ---
 
-<img width="888" height="650" alt="Image" src="https://github.com/jburgoshiciano-source/DoS-mediante-el-protocolo-CDP-gns3/blob/4bd6302c763df840d1c6a647a1580aacc459e6ab/1111111.png" />
+<img width="888" height="650" alt="Image" src="[https:(https://github.com/jburgoshiciano-source/Ataque-STP-Claim-Root-Attack-Gns3/blob/545346caccbaedb73f508dc21df7d0e9395eeef0/wwwwwwwww.png)" />
 
 ### Tabla de Direccionamiento
 
