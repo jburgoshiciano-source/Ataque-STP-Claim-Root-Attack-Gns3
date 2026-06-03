@@ -34,19 +34,8 @@ Segmentación de Red: VLAN 1 (predeterminada).
 **Direccionamiento**
 * **Red utilizada:** 192.168.140.0/24.
 * **Kali Linux:** 192.168.140.132/24.
-**Conectividad proporcionada mediante Cloud VMnet8.**
+---
 
-O si deseas mantener el formato de "Atacante" para fines académicos:
-
-Detalles de la Topología
-Segmentación de Red: Se ha configurado la VLAN 1.
-Direccionamiento IP: Subred 192.168.140.0/24.
-Infraestructura:
-Switch Cisco IOU L2
-Cloud VMnet8
-Actores:
-Nodo de pruebas: Kali Linux (IP 192.168.140.132).
-Dispositivo objetivo: Switch Cisco IOU L2.
 <img width="888" height="650" alt="Image" src="https://github.com/jburgoshiciano-source/DoS-mediante-el-protocolo-CDP-gns3/blob/4bd6302c763df840d1c6a647a1580aacc459e6ab/1111111.png" />
 
 ### Tabla de Direccionamiento
