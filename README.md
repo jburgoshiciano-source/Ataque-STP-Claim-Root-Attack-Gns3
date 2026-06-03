@@ -8,7 +8,7 @@
 
 **Fecha:**  01 Junio 2026
 
-**Link del video**: https://youtu.be/RKuWaAdzVhc
+**Link del video**: https://youtu.be/jxBDHxcn1EE
 
 
 ---
@@ -22,7 +22,7 @@ El escenario permite observar el intercambio de mensajes Bridge Protocol Data Un
 
 ### Detalles de la Topología
 
-Segmentación de Red: VLAN 1 (predeterminada).
+**Segmentación de Red:** VLAN 1 (predeterminada).
 **Infraestructura:**
 * **Switch Cisco IOU L2.**
 * **Cloud VMnet8.**
@@ -44,7 +44,6 @@ Segmentación de Red: VLAN 1 (predeterminada).
 | :--- | :--- | :--- | :--- |
 | **Router Gateway** | 192.168.140.1 | 255.255.255.0 (/24) | N/A |
 | **Kali Linux (Atacante)** | 192.168.140.132 | 255.255.255.0 (/24) | 192.168.140.132 |
-| **PC1 (Víctima)** | 192.168.140.120 | 255.255.255.0 (/24) | 192.168.140.1 |
 ---
 
  Requisitos Previos y Herramientas
@@ -56,58 +55,62 @@ Para la ejecución exitosa de estos scripts, se requiere el siguiente entorno:
 * **Librerías:** `Scapy` (Instalación: `sudo apt install python3-scapy`).
 * Simulador de Red: GNS3.
 Dispositivos Simulados:
-Router Cisco c7200.
 Switch Cisco IOU L2.
-VPCS (víctima).
 Cloud VMnet8.
-Permisos: Acceso de superusuario (root) para el envío de tramas Ethernet a nivel de capa 2.
-Ataque Simulado: MAC Flooding.
+Permisos: Acceso de superusuario (root) para la captura y análisis de tramas Ethernet y BPDUs de STP.
 
 ---
 
- Ataque : MAC Flooding 
+ Ataque : STP Claim Root Attack
 
  ### Objetivo del Script
-El script implementa una simulación de un ataque de MAC Flooding en un entorno de laboratorio controlado. Su objetivo es generar y enviar una gran cantidad de tramas Ethernet utilizando direcciones MAC de origen aleatorias con el fin de saturar la tabla CAM (Content Addressable Memory) del switch. Al agotarse la capacidad de la tabla, el switch puede dejar de asociar correctamente las direcciones MAC a sus puertos y comenzar a reenviar tráfico a múltiples interfaces, comportándose de manera similar a un hub. Esta práctica permite demostrar cómo un atacante podría facilitar la captura de tráfico de otros dispositivos de la red, comprometiendo la confidencialidad de las comunicaciones y evidenciando la importancia de implementar mecanismos de seguridad de capa 2, como Port Security, en infraestructuras de red empresariales.
+El script implementa una práctica de laboratorio orientada al análisis del protocolo Spanning Tree Protocol (STP) y del proceso de elección del Root Bridge dentro de una infraestructura de red Cisco. Su funcionamiento consiste en capturar y analizar las Bridge Protocol Data Units (BPDUs) intercambiadas por los switches de la red, permitiendo identificar los dispositivos que participan en la topología STP y observar los valores de prioridad y dirección MAC utilizados durante la elección del Root Bridge.
+
+La práctica permite comprender cómo STP mantiene una topología libre de bucles mediante el intercambio continuo de información entre dispositivos de capa 2. Asimismo, facilita el estudio de escenarios donde cambios en los parámetros de prioridad pueden influir en la selección del Root Bridge y provocar procesos de reconvergencia de la red. El objetivo principal es reforzar el conocimiento sobre el funcionamiento interno de STP, analizar los riesgos asociados a configuraciones inadecuadas y destacar la importancia de implementar mecanismos de protección como BPDU Guard, Root Guard y una correcta administración de prioridades para preservar la estabilidad y seguridad de la infraestructura de red.
 
 ### Parámetros Usados
-Interfaz de red: eth0
+**Interfaz de red:** eth0
 
-Topología: Router Cisco c7200, Switch Cisco IOU L2, Kali Linux (Atacante), VPCS (Víctima) y Cloud VMnet8.
+**Topología:** Switch Cisco IOU L2, Kali Linux y Cloud VMnet8.
 
-Red: 192.168.140.0/24
+**Red:** 192.168.140.0/24
 
-Direcciones MAC de origen: Generadas de forma aleatoria para simular múltiples dispositivos dentro de la red.
+**Protocolo analizado:** Spanning Tree Protocol (STP).
 
-Destino de las tramas: Direcciones MAC variables enviadas a través del switch objetivo.
+**Dirección MAC utilizada:** Configurable mediante parámetro del script para representar el identificador del bridge analizado.
 
-Herramienta utilizada: Python 3.x con Scapy.
+**Prioridad del Bridge:** Valor configurable para observar su influencia en el proceso de elección del Root Bridge.
 
-Objetivo: Saturar la tabla CAM (Content Addressable Memory) del switch mediante el envío masivo de tramas Ethernet con direcciones MAC falsificadas.
+**Destino de las tramas:** Dirección multicast de STP 01:80:C2:00:00:00.
 
-Resultado esperado: El switch agota su capacidad de aprendizaje de direcciones MAC y comienza a reenviar tráfico a múltiples puertos, permitiendo observar el impacto de un ataque de MAC Flooding en un entorno de laboratorio controlado.
+**Herramienta utilizada:** Python 3.x con Scapy.
+
+**Mensajes analizados:** Bridge Protocol Data Units (BPDUs).
+
+**Captura de tráfico:** Almacenamiento opcional de paquetes en formato .pcap para análisis posterior en Wireshark.
+
+**Objetivo:** Analizar el intercambio de BPDUs, identificar el Root Bridge de la red y observar el funcionamiento del proceso de convergencia de STP.
+
+**Resultado esperado:** Visualizar los parámetros utilizados por STP para seleccionar el Root Bridge, verificar el comportamiento de la topología ante cambios de prioridad y comprender la importancia de los mecanismos de protección de capa 2.
 
 ---
 
 ### Medidas de Mitigación
 
-Para mitigar ataques de MAC Flooding, se recomienda implementar Port Security en los puertos de acceso del switch. Esta característica limita la cantidad de direcciones MAC que pueden aprenderse en una interfaz y permite definir acciones cuando se supera dicho límite. De esta manera, se evita que un atacante pueda inundar la tabla CAM del switch con direcciones MAC falsas y comprometer la confidencialidad del tráfico de la red.
+Para reducir el riesgo de manipulación de la topología STP, se recomienda implementar mecanismos de seguridad que impidan que dispositivos no autorizados envíen BPDUs o intenten convertirse en Root Bridge. Entre las medidas más efectivas se encuentran BPDU Guard y Root Guard, las cuales permiten proteger la estabilidad de la red y evitar cambios inesperados en la convergencia de STP.
 
 ```bash
-Switch(config)# interface FastEthernet0/1
-Switch(config-if)# switchport mode access
-Switch(config-if)# switchport port-security
-Switch(config-if)# switchport port-security maximum 2
-Switch(config-if)# switchport port-security violation shutdown
+Switch(config)# interface FastEthernet0/2
+Switch(config-if)# spanning-tree guard root
 ```
 ### Beneficios
 
-Limita el número de direcciones MAC permitidas por puerto.
+**Evita que dispositivos no autorizados participen en el proceso de elección del Root Bridge.**
 
-Evita la saturación de la tabla CAM del switch.
+**Protege la topología STP contra cambios inesperados.**
 
-Reduce el riesgo de captura de tráfico mediante MAC Flooding.
+**Reduce el riesgo de interrupciones causadas por reconvergencias innecesarias.**
 
-Permite detectar y bloquear dispositivos no autorizados.
+**Mantiene la estabilidad y disponibilidad de la red.**
 
-Incrementa la seguridad de la infraestructura de capa 2.
+**Incrementa la seguridad de la infraestructura de capa 2.**
