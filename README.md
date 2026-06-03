@@ -36,7 +36,7 @@ El escenario permite observar el intercambio de mensajes Bridge Protocol Data Un
 * **Kali Linux:** 192.168.140.132/24.
 ---
 
-<img width="888" height="650" alt="Image" src="https://github.com/jburgoshiciano-source/Ataque-STP-Claim-Root-Attack-Gns3/blob/main/wwwwwwwww.png]" />
+<img width="888" height="650" alt="Image" src="https://github.com/jburgoshiciano-source/Ataque-STP-Claim-Root-Attack-Gns3/blob/5300189ef57af51b281541c3d23d9345d455df25/wwwwwwwww.png" />
 
 ### Tabla de Direccionamiento
 
